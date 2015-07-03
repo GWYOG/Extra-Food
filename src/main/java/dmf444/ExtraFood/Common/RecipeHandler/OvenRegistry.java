@@ -1,7 +1,6 @@
 package dmf444.ExtraFood.Common.RecipeHandler;
 
 import dmf444.ExtraFood.Common.items.ItemLoader;
-import dmf444.ExtraFood.Common.items.nbt.NBTFoodLoader;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -14,21 +13,21 @@ public class OvenRegistry {
 	public ArrayList<OvenRegistryRecipe> recipes = new ArrayList<OvenRegistryRecipe>();
 	
 	public OvenRegistry(){
-		addRecipet("pizza", 3, is(ItemLoader.dough, 1), is(ItemLoader.tomato, 2));
-		addRecipe("muffin", 3, is(ItemLoader.muffinPan, 1), is(ItemLoader.dough, 1));
+		addRecipet("pizza", 60, 1, is(ItemLoader.dough, 1), is(ItemLoader.tomato, 2));
+		addRecipe("muffin", 3, 8, is(ItemLoader.muffinPan, 1), is(ItemLoader.dough, 1));
 	}
 	
-	public void addRecipet(String foodname, int time, ItemStack... st){
-		addRecipe(foodname, time, null, st);
+	public void addRecipet(String foodname, int time, int amt, ItemStack... st){
+		addRecipe(foodname, time, amt, null, st);
 	}
 	
-	public void addRecipe(String foodname, int time, ItemStack pan, ItemStack... st){
+	public void addRecipe(String foodname, int time, int amt, ItemStack pan, ItemStack... st){
 		ArrayList<ItemStack> is = new ArrayList<ItemStack>();
 		for (ItemStack istacker : st){
 			is.add(istacker);
 		}
 		
-		OvenRegistryRecipe recipe = new OvenRegistryRecipe(foodname, time, pan, is);
+		OvenRegistryRecipe recipe = new OvenRegistryRecipe(foodname, time, amt, pan, is);
 		recipes.add(recipe);
 	}
 	public ItemStack is(Item i, int amount){

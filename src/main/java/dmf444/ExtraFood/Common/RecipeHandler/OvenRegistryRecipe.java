@@ -1,14 +1,15 @@
 package dmf444.ExtraFood.Common.RecipeHandler;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import dmf444.ExtraFood.Common.items.nbt.NBTFoodLoader;
 import dmf444.ExtraFood.Common.items.nbt.NBTFoodRegistry;
 import dmf444.ExtraFood.Common.items.nbt.NBTFoodSpecs;
 import dmf444.ExtraFood.util.EFLog;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
 
 public class OvenRegistryRecipe {
 	public ArrayList<ItemStack> items;
@@ -16,14 +17,15 @@ public class OvenRegistryRecipe {
 	public ItemStack extra;
 	
 	public int time;
+	public int amt;
 	
-	public OvenRegistryRecipe(String foodname, int time, ArrayList<ItemStack> stacks){
-		this(foodname, time, null, stacks);
+	public OvenRegistryRecipe(String foodname, int time, int amt, ArrayList<ItemStack> stacks){
+		this(foodname, time, amt, null, stacks);
 	}
 	
 	
 	
-	public OvenRegistryRecipe(String foodname, int time, ItemStack pan, ArrayList<ItemStack> stacks){
+	public OvenRegistryRecipe(String foodname, int time, int amt, ItemStack pan, ArrayList<ItemStack> stacks){
 		
 		ArrayList<ItemStack> is = new ArrayList<ItemStack>();
 		for (ItemStack istacker : stacks){
@@ -33,6 +35,7 @@ public class OvenRegistryRecipe {
 		
 		food = foodname;
 		extra = pan;
+		this.amt = amt;
 		this.time = time;
 	}
 	
@@ -76,10 +79,32 @@ public class OvenRegistryRecipe {
 			//EFLog.error("nuu 180");
 			return null;
 		}
+
+		System.out.println("SPECS NOM: " + specs.non);
+
 		if (specs.non.contains(things)){
-			//EFLog.error("nuu 567");
+			EFLog.error("nuu 567");
 			return null;
 		}
+
+		boolean accept = false;
+
+		ArrayList<ArrayList<String>> acept = new ArrayList<>();
+		Enumeration<ArrayList<String>> enumeration = specs.info.keys();
+
+		while (enumeration.hasMoreElements()) {
+			ArrayList<String> item_list = enumeration.nextElement();
+			acept.add(item_list);
+		}
+
+		if (acept.contains(things)){
+			accept = true;
+		}
+
+		if (accept == false){
+			return null;
+		}
+		istack.stackSize = this.amt;
 		return istack;
 		
 	}
