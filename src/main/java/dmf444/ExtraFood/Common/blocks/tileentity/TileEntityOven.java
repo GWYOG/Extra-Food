@@ -2,12 +2,16 @@ package dmf444.ExtraFood.Common.blocks.tileentity;
 
 import dmf444.ExtraFood.Common.RecipeHandler.OvenRegistry;
 import dmf444.ExtraFood.Common.RecipeHandler.OvenRegistryRecipe;
+import dmf444.ExtraFood.Common.items.nbt.NBTFoodRegistry;
+import dmf444.ExtraFood.Common.items.nbt.NBTFoodSpecs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+
+import java.util.Enumeration;
 
 public class TileEntityOven extends TileEntity implements ISidedInventory{
 		//TODO Constructors
@@ -34,11 +38,13 @@ public class TileEntityOven extends TileEntity implements ISidedInventory{
 	@Override
 	public void updateEntity() {
 		if (OvenRegistry.instance.ok(items) && items[5] == null){
-			if (getTime() == 0 && going == false){
+			if (getTime() == 0 && going == false) {
 				startRecipe(OvenRegistry.instance.getRecipe(items));
 				return;
 			}
+
 			else {
+				maxtime = recipet.getTime(OvenRegistry.instance.getArrayList(items));
 				setTime(getTime() + 1);
 				if (getTime() == maxtime){
 					endRecipe();
@@ -73,7 +79,7 @@ public class TileEntityOven extends TileEntity implements ISidedInventory{
 				
 				if (recipet.ok(is, itt)){
 					
-					
+					System.out.println("hi");
 					
 					items[i].stackSize -= itt.stackSize;
 					if (items[i].stackSize <= 0){
@@ -96,7 +102,23 @@ public class TileEntityOven extends TileEntity implements ISidedInventory{
 				items[i] = null;
 			}
 			else {
-				items[i].stackSize -= 1;
+				NBTFoodSpecs specs = NBTFoodRegistry.food.getSpecs(recipet.food);
+
+				int val = 1;
+				Enumeration<ItemStack> t = specs.addtypes.elements();
+				while (t.hasMoreElements()){
+					ItemStack n = t.nextElement();
+					System.out.println(n);
+					System.out.println(is.getItem().getUnlocalizedName());
+					System.out.println(n.getItem().getUnlocalizedName());
+					if (n.getItem().getUnlocalizedName().equals(is.getItem().getUnlocalizedName())) {
+						System.out.println("hie");
+						val = n.stackSize;
+						break;
+					}
+				}
+
+				decrStackSize(i, val);
 			}
 			
 		}

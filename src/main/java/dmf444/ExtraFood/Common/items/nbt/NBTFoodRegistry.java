@@ -41,7 +41,7 @@ public class NBTFoodRegistry {
 	private Dictionary<String, ArrayList<Object>> Muffin_ADD = dict("chocolate_chip", p +"muffinChocolate", is(ItemLoader.chocolate), "strawberry", p +"muffinStrawberry", is(ItemLoader.strawberry), "banana", p +"muffinBanana", is(ItemLoader.banana), "apple", p +"muffinApple", is(Items.apple), "Doublechocolate", p +"muffinDoubleChocolate", new ItemStack(ItemLoader.chocolate, 2));
 	
 	
-	private Dictionary<ArrayList<String>, ArrayList<Object>> Muffin_Type = createInfo("chocolate_chip", 8, 4, "strawberry", 10, 4,"Doublechocolate", 12, 2, "apple", 10, 5, "banana", 10, 6);//, "banana", "chocolate_chip", 15, 6
+	private Dictionary<ArrayList<String>, ArrayList<Object>> Muffin_Type = createInfo("chocolate_chip", 8, 4, "strawberry", 10, 4,"Doublechocolate", 12, 2, "apple", 10, 5, "banana", 10, 6, "Doublechocolate", "chocolate_chip", 13, 4, "banana", "chocolate_chip", 11, 6);//, "banana", "chocolate_chip", 15, 6
 	
 	
 	

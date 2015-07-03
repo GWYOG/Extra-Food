@@ -33,10 +33,12 @@ public class BlockLoader {
 	public static Block lettuceCrop;
 	public static Block juiceMixer;
 	public static Block Chocake;
+	public static Block oliveBush;
 	
 	public static boolean Register=false;
 	
 	public static void initiateBlocks() {
+		oliveBush = new OliveBush();
 		bananaBunch = new BananaBlock(Material.cactus).setBlockName(BlockLib.bBB).setBlockTextureName("extrafood:BananaBunch");
 		saplingBanana = new BananaTreeSapling().setBlockName(BlockLib.bBS);
 		cheesePress = new CheesePress().setBlockName(BlockLib.bCP).setHardness(1.5F);
@@ -61,6 +63,7 @@ public class BlockLoader {
 	}
 	private static void registerBlocks() {
 		if(!Register){
+			GameRegistry.registerBlock(oliveBush, "temp_olive_name");
 			GameRegistry.registerBlock(bananaBunch, BlockLib.bBB);
 			GameRegistry.registerBlock(saplingBanana, BlockLib.bBS);
 			GameRegistry.registerBlock(cheesePress, BlockLib.bCP);
