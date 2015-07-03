@@ -78,7 +78,7 @@ public class BerryRender implements ISimpleBlockRenderingHandler {
 			Block block, int modelId, RenderBlocks renderer) {
 		// TODO Auto-generated method stub
 
-
+		//System.out.println("test2");
 
 
 		/*Tessellator tessellator = Tessellator.instance;

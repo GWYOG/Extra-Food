@@ -18,10 +18,11 @@ public class ClientProxy extends CommonProxy{
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOven.class, new RenderOven());
 		ClientRegistry.bindTileEntitySpecialRenderer(JuiceMixerTileEntity.class, new JuiceMixerRenderer());
 		//JuiceRegistry.instance = new JuiceRegistry();
-		bushrender = new BerryRender();
 		oliveBushRender = new OliveBushRender();
+		bushrender = new BerryRender();
+		RenderingRegistry.registerBlockHandler(oliveBushRender.getRenderId(), oliveBushRender);
 		RenderingRegistry.registerBlockHandler(bushrender);
-		RenderingRegistry.registerBlockHandler(oliveBushRender);
+
 		
 		
 	}

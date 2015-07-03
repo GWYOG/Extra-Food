@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+import org.lwjgl.opengl.GL11;
 
 /**
  * Created by mincrmatt12. Do not copy this or you will have to face
@@ -20,7 +21,8 @@ public class OliveBushRender implements ISimpleBlockRenderingHandler{
 
 
     public OliveBushRender() {
-        BerryRender.myRenderID = RenderingRegistry.getNextAvailableRenderId();
+
+        OliveBushRender.myRenderID = RenderingRegistry.getNextAvailableRenderId();
         // TODO Auto-generated constructor stub
     }
 
@@ -31,8 +33,12 @@ public class OliveBushRender implements ISimpleBlockRenderingHandler{
 
     public void draw(int x, int y, int z, IIcon icon_wood, IIcon icon_top) {
 
+       // System.out.println("test");
+
         Tessellator tes = Tessellator.instance;
-        tes.startDrawingQuads();
+        //tes.startDrawingQuads();
+
+        tes.setColorOpaque_F(1.0f, 1.0f, 1.0f);
 
         double mv = (double) icon_wood.getMinV();
         double mu = (double) icon_wood.getMinU();
@@ -51,25 +57,25 @@ public class OliveBushRender implements ISimpleBlockRenderingHandler{
         // +x quad
 
         tes.addVertexWithUV(x+.375, y, z+.375, mu, mv);
-        tes.addVertexWithUV(x+.375, y+.375, z+.375, xu, mv);
+        tes.addVertexWithUV(x+.375, y+.375, z+.375, mu, xv);
         tes.addVertexWithUV(x+.375, y+.375, z+.625, xu, xv);
-        tes.addVertexWithUV(x+.375, y, z+.625, mu, xv);
+        tes.addVertexWithUV(x+.375, y, z+.625, xu, mv);
         tes.draw();
 
         tes.startDrawingQuads();
         // -x quad
 
         tes.addVertexWithUV(x+.625, y, z+.375, mu, mv);
-        tes.addVertexWithUV(x+.625, y+.375, z+.375, xu, mv);
+        tes.addVertexWithUV(x+.625, y+.375, z+.375, mu, xv);
         tes.addVertexWithUV(x+.625, y+.375, z+.625, xu, xv);
-        tes.addVertexWithUV(x+.625, y, z+.625, mu, xv);
+        tes.addVertexWithUV(x+.625, y, z+.625, xu, mv);
         tes.draw();
 
         tes.startDrawingQuads();
         // +z quad
 
         tes.addVertexWithUV(x+.375, y, z+.375, mu, mv);
-        tes.addVertexWithUV(x+.375, y+.375, z+.375, xu, mv);
+        tes.addVertexWithUV(x+.375, y+.375, z+.375, mu, xv);
         tes.addVertexWithUV(x+.625, y+.375, z+.375, xu, xv);
         tes.addVertexWithUV(x+.625, y, z+.375, xu, mv);
         tes.draw();
@@ -78,7 +84,7 @@ public class OliveBushRender implements ISimpleBlockRenderingHandler{
         // -z quad
 
         tes.addVertexWithUV(x+.375, y, z+.625, mu, mv);
-        tes.addVertexWithUV(x+.375, y+.375, z+.625, xu, mv);
+        tes.addVertexWithUV(x+.375, y+.375, z+.625, mu, xv);
         tes.addVertexWithUV(x+.625, y+.375, z+.625, xu, xv);
         tes.addVertexWithUV(x+.625, y, z+.625, xu, mv);
         tes.draw();
@@ -150,8 +156,24 @@ public class OliveBushRender implements ISimpleBlockRenderingHandler{
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
 
+
+        GL11.glPushMatrix();
+
+        GL11.glDisable(GL11.GL_CULL_FACE);
+        GL11.glDisable(GL11.GL_LIGHTING);
+
+        Tessellator tessellator = Tessellator.instance;
+
+        GL11.glColor3f(1.0f, 1.0f, 1.0f);
+
         OliveBush b = (OliveBush) block;
         draw(x, y, z, b.wood, b.leaves);
+
+
+
+        GL11.glEnable(GL11.GL_CULL_FACE);
+
+        GL11.glPopMatrix();
 
         return true;
     }

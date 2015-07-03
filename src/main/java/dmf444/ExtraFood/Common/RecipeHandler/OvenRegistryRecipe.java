@@ -80,7 +80,7 @@ public class OvenRegistryRecipe {
 			return null;
 		}
 
-		System.out.println("SPECS NOM: " + specs.non);
+
 
 		if (specs.non.contains(things)){
 			EFLog.error("nuu 567");

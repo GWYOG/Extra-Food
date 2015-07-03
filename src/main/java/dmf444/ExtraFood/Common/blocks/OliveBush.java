@@ -1,5 +1,7 @@
 package dmf444.ExtraFood.Common.blocks;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import dmf444.ExtraFood.Client.ClientProxy;
 import dmf444.ExtraFood.Core.OvenFoodTab;
 import net.minecraft.block.Block;
@@ -21,6 +23,7 @@ public class OliveBush extends Block{
         this.setCreativeTab(OvenFoodTab.INSTANCE);
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public int getRenderType() {
         return ClientProxy.oliveBushRender.getRenderId();
