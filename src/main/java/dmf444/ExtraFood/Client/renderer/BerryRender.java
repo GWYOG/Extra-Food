@@ -174,7 +174,6 @@ public class BerryRender implements ISimpleBlockRenderingHandler {
 
 
 
-
 	    tess.startDrawingQuads();
 	    tess.addVertexWithUV(1, 0, 1, maxU1, maxV1);
 	    tess.addVertexWithUV(1, 0.25, 1, maxU1, minV1);
